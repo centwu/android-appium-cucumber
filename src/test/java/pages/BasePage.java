@@ -37,7 +37,11 @@ public abstract class BasePage {
         }
     }
 
-    protected void type(By locator, String text) {
+    protected void waitForInvisible(By locator) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
+    protected void inputText(By locator, String text) {
         waitForVisible(locator);
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(text);
