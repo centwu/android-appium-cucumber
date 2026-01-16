@@ -30,8 +30,8 @@ public class LoginPage extends BasePage {
     }
 
     public void login(User user) {
-        type(usernameInputField, user.username());
-        type(passwordInputField, user.password());
+        inputText(usernameInputField, user.username());
+        inputText(passwordInputField, user.password());
         click(loginButton);
     }
 
