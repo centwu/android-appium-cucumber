@@ -1,5 +1,6 @@
 package pages;
 
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -51,4 +52,14 @@ public abstract class BasePage {
         waitForVisible(locator);
         return driver.findElement(locator).getText();
     }
+
+    protected void scrollToText(String text) {
+        driver.findElement(
+                AppiumBy.androidUIAutomator(
+                        "new UiScrollable(new UiSelector().scrollable(true))" +
+                                ".scrollIntoView(new UiSelector().text(\"" + text + "\"))"
+                )
+        );
+    }
+
 }

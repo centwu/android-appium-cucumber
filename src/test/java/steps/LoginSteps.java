@@ -3,13 +3,11 @@ package steps;
 import data.Users;
 import io.cucumber.java.en.*;
 import pages.LoginPage;
-import pages.ProductsPage;
 import pages.SideMenuPage;
 
 public class LoginSteps {
 
     LoginPage loginPage = new LoginPage();
-    ProductsPage productsPage = new ProductsPage();
     SideMenuPage sideMenuPage = new SideMenuPage();
 
     @Given("user navigates to login page")
