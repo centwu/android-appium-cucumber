@@ -1,13 +1,42 @@
 package steps;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
-import pages.CartPage;
-import pages.HeaderPage;
+import models.CartItem;
+import pages.*;
+import utils.CheckoutContext;
+
+import java.util.List;
 
 public class CartSteps {
 
     CartPage cartPage = new CartPage();
     HeaderPage headerPage = new HeaderPage();
+    ProductsPage productsPage = new ProductsPage();
+    ProductDetailPage productDetailPage = new ProductDetailPage();
+    SideMenuPage sideMenuPage = new SideMenuPage();
+
+    @Given("user has the following items in the cart:")
+    public void userHasItemsInCart(DataTable table) {
+        List<CartItem> items = table.asList(CartItem.class);
+
+        CheckoutContext.setCartItems(items);
+
+        for (CartItem item : items) {
+            productsPage.selectProductByName(item.product());
+            productDetailPage.verifyProductDetailPageDisplayed(item.product());
+            productDetailPage.setQuantity(item.quantity());
+            productDetailPage.clickAddToCartButton();
+
+            headerPage.clickBurgerMenuButton();
+            sideMenuPage.navigateToCatalog();
+        }
+    }
+
+    @Given("user proceeds to checkout")
+    public void userProceedsToCheckout() {
+        cartPage.clickProceedCheckoutButton();
+    }
 
     @When("user navigates to cart page")
     public void userNavigatesToCartPage() {

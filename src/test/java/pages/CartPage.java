@@ -23,6 +23,9 @@ public class CartPage extends BasePage {
     private final By totalPriceText =
             AppiumBy.id(APP_PACKAGE + ":id/totalPriceTV");
 
+    private final By proceedCheckoutButton =
+            AppiumBy.accessibilityId("Confirms products for checkout");
+
     private By getCartItemContainerByName(String productName) {
         return AppiumBy.xpath(
                 "//androidx.recyclerview.widget.RecyclerView[@resource-id='" + APP_PACKAGE + ":id/productRV']" +
@@ -98,5 +101,9 @@ public class CartPage extends BasePage {
 
     public void verifyCartItemRemoved(String productName) {
         waitForInvisible(getCartItemContainerByName(productName));
+    }
+
+    public void clickProceedCheckoutButton() {
+        click(proceedCheckoutButton);
     }
 }
